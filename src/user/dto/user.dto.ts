@@ -19,4 +19,19 @@ export class UserDto implements IUser {
 
   @ApiProperty()
   updatedAt: number;
+
+  @ApiProperty()
+  interests: string;
+
+  @ApiProperty()
+  isOnline: boolean;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  notifications: boolean;
+
+  @ApiProperty()
+  surname: string;
 }
