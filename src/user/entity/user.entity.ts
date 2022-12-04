@@ -26,6 +26,9 @@ export class User implements IUser {
   username: string;
 
   @Column('varchar')
+  password: string;
+
+  @Column('varchar')
   name: string;
 
   @Column('varchar')

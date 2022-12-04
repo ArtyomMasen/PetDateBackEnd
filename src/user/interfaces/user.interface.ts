@@ -1,8 +1,11 @@
+import { IPet } from "../../pet/interfaces";
+
 export interface IUser {
   id: number;
   email: string;
   isVerified: boolean;
   username: string;
+  password: string;
   name: string;
   surname: string;
   interests: string;
@@ -10,4 +13,5 @@ export interface IUser {
   isOnline: boolean;
   createdAt: Date;
   updatedAt: Date;
+  pets: IPet[];
 }

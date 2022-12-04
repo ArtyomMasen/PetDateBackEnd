@@ -3,7 +3,7 @@ import { IUser } from "../interfaces";
 import { JoinTable, OneToMany } from "typeorm";
 import { Pet } from "../../pet/entity";
 
-export class UserDto implements IUser {
+export class UserDto {
   @ApiProperty()
   id: number;
 
@@ -15,6 +15,9 @@ export class UserDto implements IUser {
 
   @ApiProperty()
   username: string;
+
+  @ApiProperty()
+  password: string;
 
   @ApiProperty()
   interests: string;
