@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IUser } from "../interfaces";
+import { JoinTable, OneToMany } from "typeorm";
+import { Pet } from "../../pet/entity";
 
 export class UserDto implements IUser {
   @ApiProperty()
@@ -15,12 +17,6 @@ export class UserDto implements IUser {
   username: string;
 
   @ApiProperty()
-  createdAt: number;
-
-  @ApiProperty()
-  updatedAt: number;
-
-  @ApiProperty()
   interests: string;
 
   @ApiProperty()
@@ -34,4 +30,10 @@ export class UserDto implements IUser {
 
   @ApiProperty()
   surname: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }

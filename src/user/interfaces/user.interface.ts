@@ -3,11 +3,11 @@ export interface IUser {
   email: string;
   isVerified: boolean;
   username: string;
-  createdAt: number;
-  updatedAt: number;
   name: string;
   surname: string;
   interests: string;
   notifications: boolean;
   isOnline: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

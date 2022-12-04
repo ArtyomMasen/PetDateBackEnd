@@ -11,5 +11,5 @@ export class CreatePetDto {
   readonly breed: string;
 
   @ApiProperty()
-  readonly kind_of_animal: string;
+  readonly kindOfAnimal: string;
 }

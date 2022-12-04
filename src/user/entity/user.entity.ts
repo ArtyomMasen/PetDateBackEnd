@@ -1,6 +1,15 @@
-import { IUser } from "../interfaces";
-import { BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { getUnixTime } from "date-fns";
+import { IUser } from '../interfaces';
+import {
+  BeforeUpdate,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { getUnixTime } from 'date-fns';
+import { Pet } from '../../pet/entity';
 
 @Entity()
 export class User implements IUser {
@@ -31,14 +40,12 @@ export class User implements IUser {
   @Column('boolean')
   isOnline: boolean;
 
-  @CreateDateColumn({ type: 'integer' })
-  createdAt: number;
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
 
-  @UpdateDateColumn({ type: 'integer' })
-  updatedAt: number;
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 
-  @BeforeUpdate()
-  private update?() {
-    this.updatedAt = getUnixTime(new Date());
-  }
+  @OneToMany(() => Pet, (pet) => pet.user)
+  pets: Pet[];
 }
