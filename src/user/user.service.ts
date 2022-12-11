@@ -14,6 +14,10 @@ export class UserService {
   ) {
   }
 
+  async getAll(): Promise<User[]> {
+    return await this.userRepository.find();
+  }
+
   async createUser(dto: CreateUserDto): Promise<IUser> {
     return this.userRepository.save(dto);
   }

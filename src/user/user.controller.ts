@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Patch, Post, Req } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Req } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto, UpdateUserDto, UserDto } from "./dto";
 import { ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse } from "@nestjs/swagger";
@@ -13,10 +13,15 @@ export class UserController {
   }
 
   @Get()
+  async getAll(): Promise<User[]> {
+    return await this.userService.getAll()
+  }
+
+  @Get(':id')
   @ApiOkResponse({ type: UserDto })
   @ApiNotFoundResponse()
-  async findOneUser(@Req() req: any): Promise<UserDto> {
-    return this.userService.findOneUser(req.user.userId);
+  async findOneUser(@Param('id') userId: number): Promise<UserDto> {
+    return this.userService.findOneUser(userId);
   }
 
   @Post()
@@ -24,11 +29,10 @@ export class UserController {
     return await this.userService.createUser(dto);
   }
 
-  @Patch()
+  @Patch(':id')
   @ApiOkResponse({ type: UserDto })
   @ApiNotFoundResponse()
-  async updateUser(@Req() req: any, @Body() dto: UpdateUserDto): Promise<UserDto> {
-    const userId = req.user.userId;
+  async updateUser(@Param('id') userId: number, @Body() dto: UpdateUserDto): Promise<UserDto> {
     await this.userService.updateUser(userId, dto);
 
     return this.userService.findOneUser(userId);
@@ -37,8 +41,7 @@ export class UserController {
   @Patch('/verified')
   @ApiOkResponse({ type: UserDto })
   @ApiNotFoundResponse()
-  async verifiedUser(@Req() req: any): Promise<UserDto> {
-    const userId = req.user.userId;
+  async verifiedUser(@Param('id') userId: number): Promise<UserDto> {
     await this.userService.verifiedUser(userId);
 
     return this.userService.findOneUser(userId);
@@ -48,7 +51,7 @@ export class UserController {
   @ApiNoContentResponse()
   @ApiNotFoundResponse({ description: 'not found' })
   @HttpCode(204)
-  async deleteUser(@Req() req: any) {
-    await this.userService.deleteUser(req.user.userId);
+  async deleteUser(@Param('id') userId: number) {
+    await this.userService.deleteUser(userId);
   }
 }
