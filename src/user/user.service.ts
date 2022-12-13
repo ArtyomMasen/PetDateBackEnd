@@ -42,8 +42,24 @@ export class UserService {
     await this.userRepository.update(id, user);
   }
 
-  // TODO: понять, что писать!!!
   async deleteUser(id: number): Promise<void> {
     await this.userRepository.delete({id});
+  }
+
+  async login(username: string, password: string): Promise<IUser> {
+    const user = await this.userRepository.findOneBy(
+      {
+        username: username
+      }
+    )
+    if (user == null) {
+      throw new NotFoundException();
+    }
+
+    if (password != user.password) {
+      throw new NotFoundException();
+    }
+
+    return user;
   }
 }
